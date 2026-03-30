@@ -1,4 +1,4 @@
-# BookAPI
+﻿# BookAPI
 
 ## Projects
 - `BookApi.Api`: ASP.NET Core Web API on `http://localhost:9999`
@@ -20,6 +20,6 @@
    - `dotnet run --project BookApi.WinForms`
 
 ## SQL Server Note
-- Default connection string uses `DESKTOP-AGCJK63\\SQLEXPRESS01`.
-- The API also tries fallback SQL endpoints: `localhost\\SQLEXPRESS01`, `.\\SQLEXPRESS01`, `127.0.0.1,14330`.
-- If SQL Server is not reachable, enable TCP/IP for `SQLEXPRESS01`, restart the SQL Server service, and adjust the connection string if needed.
+- Default connection string uses `.\SQLEXPRESS`.
+- The API also tries fallback SQL endpoints: `DESKTOP-AGCJK63\SQLEXPRESS`, `localhost\SQLEXPRESS`, and the previous `SQLEXPRESS01` variants.
+- If SQL Server is not reachable, enable TCP/IP for the SQL Server instance, restart the SQL Server service, and adjust the connection string if needed.

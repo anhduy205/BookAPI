@@ -69,19 +69,24 @@ public sealed class SqlConnectionFactory : ISqlConnectionFactory
 
     private static IEnumerable<string> BuildFallbackDataSources(string primaryDataSource)
     {
-        if (!string.Equals(primaryDataSource, "localhost\\SQLEXPRESS01", StringComparison.OrdinalIgnoreCase))
+        var fallbacks = new[]
         {
-            yield return "localhost\\SQLEXPRESS01";
-        }
+            @".\SQLEXPRESS",
+            @"DESKTOP-AGCJK63\SQLEXPRESS",
+            @"localhost\SQLEXPRESS",
+            @".\SQLEXPRESS01",
+            @"DESKTOP-AGCJK63\SQLEXPRESS01",
+            @"localhost\SQLEXPRESS01",
+            @"127.0.0.1,1433",
+            @"127.0.0.1,14330"
+        };
 
-        if (!string.Equals(primaryDataSource, ".\\SQLEXPRESS01", StringComparison.OrdinalIgnoreCase))
+        foreach (var fallback in fallbacks)
         {
-            yield return ".\\SQLEXPRESS01";
-        }
-
-        if (!string.Equals(primaryDataSource, "127.0.0.1,14330", StringComparison.OrdinalIgnoreCase))
-        {
-            yield return "127.0.0.1,14330";
+            if (!string.Equals(primaryDataSource, fallback, StringComparison.OrdinalIgnoreCase))
+            {
+                yield return fallback;
+            }
         }
     }
 
