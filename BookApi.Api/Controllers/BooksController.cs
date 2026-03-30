@@ -77,7 +77,7 @@ public sealed class BooksController : ControllerBase
                 cancellationToken);
 
             var createdBook = await _bookRepository.GetByIdAsync(bookId, cancellationToken);
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = bookId }, createdBook!.ToResponse(Request));
+            return Created($"/api/books/{bookId}", createdBook!.ToResponse(Request));
         }
         catch
         {
