@@ -6,6 +6,7 @@ namespace BookApi.WinForms;
 public partial class Form1 : Form
 {
     private readonly BookApiClient _apiClient = new();
+    private readonly LocalApiHost _apiHost = new();
     private bool _suppressSelectionChanged;
     private string? _selectedImageFilePath;
     private int? _selectedBookId;
@@ -26,6 +27,7 @@ public partial class Form1 : Form
     {
         if (disposing)
         {
+            _apiHost.Dispose();
             _apiClient.Dispose();
             components?.Dispose();
             if (picBook.Image is not null)
@@ -62,12 +64,18 @@ public partial class Form1 : Form
     {
         try
         {
+            UseWaitCursor = true;
+            await _apiHost.EnsureAvailableAsync();
             await LoadCategoriesAsync();
             await SearchBooksAsync();
         }
         catch (Exception ex)
         {
             ShowError(ex);
+        }
+        finally
+        {
+            UseWaitCursor = false;
         }
     }
 
