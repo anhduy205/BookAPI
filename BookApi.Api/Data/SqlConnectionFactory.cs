@@ -1,4 +1,4 @@
-﻿using System.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 
 namespace BookApi.Api.Data;
 
@@ -72,10 +72,10 @@ public sealed class SqlConnectionFactory : ISqlConnectionFactory
         var fallbacks = new[]
         {
             @".\SQLEXPRESS",
-            @"DESKTOP-AGCJK63\SQLEXPRESS",
+            $@"{Environment.MachineName}\SQLEXPRESS",
             @"localhost\SQLEXPRESS",
             @".\SQLEXPRESS01",
-            @"DESKTOP-AGCJK63\SQLEXPRESS01",
+            $@"{Environment.MachineName}\SQLEXPRESS01",
             @"localhost\SQLEXPRESS01",
             @"127.0.0.1,1433",
             @"127.0.0.1,14330"
